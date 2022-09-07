@@ -10,12 +10,15 @@
 <body>
 
 <form method="post">
-  <input type="text" name="nome" value="{{ consulta['produto'] }}" placeholder="Nome do Produto">
-  <input type="text" name="marca" value="{{ consulta['marca'] }}" placeholder="Marca do Produto">
-  <input type="number" name="quantidade" value="{{ consulta['quantidade'] }}" placeholder="Quantidade do Produto">
-  <input type="text" name="preco" value="{{ consulta['preco'] }}" placeholder="Preço do Produto">
 
-  <button type="submit">Adicionar</button>
+    <input type="text" name="nome" value="{{ consulta['produto'] }}" placeholder="Nome do Produto">
+    <input type="text" name="marca" value="{{ consulta['marca'] }}" placeholder="Marca do Produto">
+    <input type="number" name="quantidade" value="{{ consulta['quantidade'] }}" placeholder="Quantidade do Produto">
+    <input type="text" name="preco" value="{{ consulta['preco'] }}" placeholder="Preço do Produto">
+
+    <button type="submit">Atualizar</button>
+    <a href="/">Cancelar</a>
+
 </form>
 
 </body>
