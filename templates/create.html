@@ -5,20 +5,42 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='create.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
     <title>Criar Produto</title>
 </head>
 <body>
 
-<form method="post">
-    <input type="text" name="codigo" placeholder="Código do Produto">
-    <input type="text" name="nome" placeholder="Nome do Produto">
-    <input type="text" name="marca" placeholder="Marca do Produto">
-    <input type="number" name="quantidade" placeholder="Quantidade do Produto">
-    <input type="text" name="preco" placeholder="Preço do Produto">
-
-    <button type="submit">Adicionar</button>
-    <a href="/">Cancelar</a>
-</form>
+<div class="container">
+    <form method="post">
+        <div class="form-group">
+            <label for="inputCodigo"><h3>Código do Produto</h3></label>
+            <input type="text" name="codigo" id="inputCodigo" class="form-control" placeholder="Ex: 1010" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="inputNome"><h3>Nome do Produto</h3></label>
+            <input type="text" name="nome" id="inputNome" class="form-control" placeholder="Ex: Regata" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="inputMarca"><h3>Marca do Produto</h3></label>
+            <input type="text" name="marca" id="inputMarca" class="form-control" placeholder="Ex: DuckGolden" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="inputQtd"><h3>Quantidade do Produto</h3></label>
+            <input type="text" name="quantidade" id="inputQtd" class="form-control" placeholder="Ex: 10" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="inputNome"><h3>Preço do Produto</h3></label>
+            <input type="text" name="preco" id="inputPreco" class="form-control" placeholder="Ex: 150.50" autocomplete="off">
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Adicionar</button>
+            <a href="/" class="btn btn-danger">Cancelar</a>
+        </div>
+    </form>
+</div>
 
 </body>
 </html>

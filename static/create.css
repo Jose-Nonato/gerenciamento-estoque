@@ -1,0 +1,25 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+form {
+    border: 1px solid gray;
+    border-radius: 20px;
+    padding: 20px;
+    width: 50%;
+    text-align: center;
+    box-shadow: 15px 15px 10px gray;
+}
+form label {
+    margin: 15px 0px;
+}
+form input {
+    text-align: center;
+}
+form button {
+    margin: 15px 0px;
+}
