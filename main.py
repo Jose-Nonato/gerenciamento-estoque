@@ -40,13 +40,13 @@ try:
 except:
     print("ERROR -Cannot connect to DB")
 
-#### Listagem dos Produtos ####
+#### Listagem dos Produtos Disponiveis no Estoque ####
 @app.route("/")
 def dataList():
     consulta = list(db.Produtos.find())
     return render_template("index.html", consulta=consulta)
 
-#### Criar Produto ####
+#### Adicionar Produto ao Estoque ####
 @app.route("/create", methods=["POST", "GET"])
 def create_product():
     msg = ''
@@ -76,6 +76,7 @@ def create_product():
 
     return render_template("create.html")
 
+#### Atualizando produto do estoque ####
 @app.route("/update/<int:id>", methods=["POST", "GET"])
 def updateProduct(id):
     consulta = db.Produtos.find_one({"_id": id})
@@ -96,6 +97,8 @@ def updateProduct(id):
 
     return render_template("update.html", consulta=consulta)
 
+
+#### Deletando Produto do Estoque ####
 @app.route("/delete/<int:id>", methods=["POST", "GET"])
 def deleteProduct(id):
     consulta = db.Produtos.find_one({"_id": id})
@@ -105,6 +108,7 @@ def deleteProduct(id):
             return redirect("/")
     return render_template("delete.html")
 
+#### Carrinho de Compras ###
 @app.route("/cart", methods=["GET", "POST"])
 def cart():
     produtos = db.Produtos.find()
@@ -132,6 +136,7 @@ def cart():
             return render_template("alertas.html", msg=msg)
     return render_template("cart.html", produtos=produtos)
 
+#### Carrinho de Compras Final ####
 @app.route("/cart/items", methods=["POST", "GET"])
 def cartItems():
     consultaCarrinho = list(db.Carrinho.find())
@@ -156,6 +161,8 @@ def cartItems():
 
     return render_template("cartItems.html", consultaCarrinho=consultaCarrinho, consultaBase=consultaBase, total=total)
 
+
+#### Deletando Produto do Carrinho de Compras ####
 @app.route("/cart/items/delete/<int:id>", methods=["POST", "GET"])
 def deleteCartItem(id):
     consulta = db.Carrinho.find_one({"_id": id})
