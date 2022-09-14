@@ -1,0 +1,21 @@
+.container {
+    text-align: center;
+}
+.container form {
+    width: 50%;
+    margin: 0 auto;
+}
+.container input {
+    text-align: center;
+}
+.container label {
+    margin: 5px;
+}
+.container button {
+    margin: 20px 0px;
+}
+
+.container .bloco {
+    display: flex;
+    justify-content: space-around;
+}

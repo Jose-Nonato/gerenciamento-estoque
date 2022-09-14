@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='cart.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+    <title>Carrinho de Compras</title>
+</head>
+<body>
+
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+        <h3>Logo</h3>
+        <ul class="nav">
+            <li class="nav-item"> <a class="nav-link active" href="/cart">Carrinho</a> </li>
+            <li class="nav-item"> <a class="nav-link active" href="/">Estoque</a> </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="text-center">
+    <h1 style="margin: 20px;"><i class="bi bi-basket"></i> Carrinho de Compras</h1>
+</div>
+
+<div class="container">
+    <form method="post">
+        <div class="form-group">
+            <label for="id">Código do Produto</label>
+            <input class="form-control" type="text" name="codigo" id="id" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+            <label for="qtd">Quantidade do produto</label>
+            <input class="form-control" type="number" name="quantidade" id="qtd" autocomplete="off" required>
+        </div>
+        <button class="btn btn-success" type="submit">Adicionar ao Carrinho</button>
+        <a href="/cart/items" class="btn btn-dark">Carrinho</a>
+    </form>
+</div>
+
+<div class="container">
+    {% for i in produtos %}
+    <div class="bloco">
+        <p>Código: <strong>{{ i['_id'] }}</strong></p>
+        <p>Produto: {{ i['produto'] }}</p>
+        <p>Quantidade: {{ i['quantidade'] }}</p>
+    </div>
+    <hr/>
+    {% endfor %}
+</div>
+
+</body>
+</html>

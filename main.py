@@ -49,6 +49,7 @@ def dataList():
 #### Criar Produto ####
 @app.route("/create", methods=["POST", "GET"])
 def create_product():
+    msg = ''
     if request.method == "POST":
         codigo = request.form.get("codigo")
         nome = request.form.get("nome")
@@ -65,7 +66,11 @@ def create_product():
 
         produto = { "_id": int(p.getCodigo()), "produto": p.getNome(), "marca": p.getMarca(), "quantidade": int(p.getQuantidade()), "preco": float(p.getPreco()), "total": float(p.getPreco()) * int(p.getQuantidade())  }
 
-        db.Produtos.insert_one(produto)
+        try:
+            db.Produtos.insert_one(produto)
+        except:
+            msg = f"O produto com o id {codigo} já existe!\nCrie com outro código!"
+            return render_template("alertas.html", msg=msg)
 
         return redirect("/")
 
@@ -97,6 +102,66 @@ def deleteProduct(id):
     if request.method == "POST":
         if consulta:
             db.Produtos.delete_one(consulta)
+            return redirect("/")
+    return render_template("delete.html")
+
+@app.route("/cart", methods=["GET", "POST"])
+def cart():
+    produtos = db.Produtos.find()
+    if request.method == "POST":
+        codigo = int(request.form.get("codigo"))
+        quantidade = int(request.form.get("quantidade"))
+        consulta = db.Produtos.find_one({"_id": codigo})
+        if consulta:
+            try:
+                db.Carrinho.insert_one({"_id": codigo, "quantidade": quantidade})
+                c1 = list(db.Produtos.find())
+                c2 = list(db.Carrinho.find())
+                for cart in c2:
+                    for prod in c1:
+                        if cart['_id'] == prod['_id']:
+                            db.Carrinho.update_one(
+                                {'_id': cart['_id']},
+                                {'$set': {'total': cart['quantidade'] * prod['preco']}},
+                            )
+            except:
+                msg = f"{codigo} já está adicionado no carrinho."
+                return render_template("alertas.html", msg=msg)
+        else:
+            msg = f"O produto com o código {codigo} não existe na base!"
+            return render_template("alertas.html", msg=msg)
+    return render_template("cart.html", produtos=produtos)
+
+@app.route("/cart/items", methods=["POST", "GET"])
+def cartItems():
+    consultaCarrinho = list(db.Carrinho.find())
+    consultaBase = list(db.Produtos.find())
+
+    total = 0.0
+    for i in consultaCarrinho:
+        total += i['total']
+
+    if request.method == "POST":
+        c1 = list(db.Produtos.find())
+        c2 = list(db.Carrinho.find())
+        for cart in c2:
+            for prod in c1:
+                if cart['_id'] == prod['_id']:
+                    db.Produtos.update_one(
+                        {'_id': cart['_id']},
+                        {'$set': {'quantidade': prod['quantidade'] - cart['quantidade'], 'total': (prod['quantidade'] - cart['quantidade'])  * prod['preco']}}
+                    )
+        db.Carrinho.drop()
+        return redirect("/cart")
+
+    return render_template("cartItems.html", consultaCarrinho=consultaCarrinho, consultaBase=consultaBase, total=total)
+
+@app.route("/cart/items/delete/<int:id>", methods=["POST", "GET"])
+def deleteCartItem(id):
+    consulta = db.Carrinho.find_one({"_id": id})
+    if request.method == "POST":
+        if consulta:
+            db.Carrinho.delete_one(consulta)
             return redirect("/")
     return render_template("delete.html")
 
