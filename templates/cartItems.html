@@ -32,7 +32,7 @@
         <div class="bloco">
             <p>Código: <strong>{{i['_id']}}</strong></p>
             <p>Qtd de Items: {{i['quantidade']}}</p>
-            <p>Total: R$<strong>{{i['total']}}</strong></p>
+            <p>Total: R$<strong>{{i['total'] | conv_curr}}</strong></p>
             <a type="button" class="btn btn-danger" href="/cart/items/delete/{{i._id}}"><i class="bi bi-trash3"></i></a>
         </div>
         <hr/>
@@ -41,7 +41,7 @@
 
 <form method="post">
     <div class="container">
-        <h1>Total: R${{total}}</h1>
+        <h1>Total: R${{total | conv_curr}}</h1>
         <button type="submit" class="btn btn-success">Finalizar Compra</button>
     </div>
 </form>

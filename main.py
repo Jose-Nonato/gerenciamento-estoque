@@ -172,5 +172,12 @@ def deleteCartItem(id):
             return redirect("/")
     return render_template("delete.html")
 
+#### Formatação dos Valores Monetários ####
+@app.template_filter('conv_curr')
+def conv_curr(amount):
+    import locale
+    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+    return locale.currency(amount)
+
 if __name__ == "__main__":
     app.run(debug=True)
