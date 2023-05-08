@@ -35,7 +35,7 @@ class Produto:
 
 try:
     mongo = pymongo.MongoClient("mongodb://localhost:27017/")
-    db = mongo.topsexy
+    db = mongo.Commerce
     mongo.server_info()
 except:
     print("ERROR -Cannot connect to DB")
